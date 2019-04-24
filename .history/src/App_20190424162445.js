@@ -28,7 +28,7 @@ class App extends Component {
       this.setState({
         val1: 0,
         val2: 0,
-        result: ''
+        result: 0
       });
     } else if (operator === '=') {
       if (this.state.operator === 'x') {
@@ -78,13 +78,13 @@ class App extends Component {
 
   calculate(calc) {
     // --- Perform a calculation expressed as an array of operators and numbers
-    let ops = [{ '^': (a, b) => Math.pow(a, b) },
+    var ops = [{ '^': (a, b) => Math.pow(a, b) },
     { '*': (a, b) => a * b, '/': (a, b) => a / b },
     { '+': (a, b) => a + b, '-': (a, b) => a - b }],
       newCalc = [],
       currentOp;
-    for (let i = 0; i < ops.length; i++) {
-      for (let j = 0; j < calc.length; j++) {
+    for (var i = 0; i < ops.length; i++) {
+      for (var j = 0; j < calc.length; j++) {
         if (ops[i][calc[j]]) {
           currentOp = ops[i][calc[j]];
         } else if (currentOp) {
@@ -94,11 +94,13 @@ class App extends Component {
         } else {
           newCalc.push(calc[j]);
         }
+        console.log(newCalc);
       }
       calc = newCalc;
       newCalc = [];
     }
     if (calc.length > 1) {
+      console.log('Error: unable to resolve calculation');
       return calc;
     } else {
       return calc[0];
@@ -118,28 +120,28 @@ class App extends Component {
 
         <table>
           <tr>
-             <td  className="btn" className="btn" onClick={(e) => this.setState({ val2: 7, result: this.state.result + '7' })}> 7 </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 8, result: this.state.result + '8' })}> 8 </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 9, result: this.state.result + '9' })}> 9 </td>
-             <td  className="btn btn-success" onClick={(e) => this.calculation('x')}> x </td>
+            <td className="btn btn-success" onClick={(e) => this.setState({ val2: 7, result: this.state.result + '7' })}> 7 </td>
+            <td onClick={(e) => this.setState({ val2: 8, result: this.state.result + '8' })}> 8 </td>
+            <td onClick={(e) => this.setState({ val2: 9, result: this.state.result + '9' })}> 9 </td>
+            <td onClick={(e) => this.calculation('x')}> x </td>
           </tr>
           <tr>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 4, result: this.state.result + '4' })}> 4 </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 5, result: this.state.result + '5' })}> 5 </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 6, result: this.state.result + '6' })}> 6 </td>
-             <td  className="btn btn-success" onClick={(e) => this.calculation('-')}> - </td>
+            <td onClick={(e) => this.setState({ val2: 4, result: this.state.result + '4' })}> 4 </td>
+            <td onClick={(e) => this.setState({ val2: 5, result: this.state.result + '5' })}> 5 </td>
+            <td onClick={(e) => this.setState({ val2: 6, result: this.state.result + '6' })}> 6 </td>
+            <td onClick={(e) => this.calculation('-')}> - </td>
           </tr>
           <tr>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 1, result: this.state.result + '1' })}> 1 </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 2, result: this.state.result + '2' })}> 2 </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 3, result: this.state.result + '3' })}> 3 </td>
-             <td  className="btn btn-success" onClick={(e) => this.calculation('+')}> + </td>
+            <td onClick={(e) => this.setState({ val2: 1, result: this.state.result + '1' })}> 1 </td>
+            <td onClick={(e) => this.setState({ val2: 2, result: this.state.result + '2' })}> 2 </td>
+            <td onClick={(e) => this.setState({ val2: 3, result: this.state.result + '3' })}> 3 </td>
+            <td onClick={(e) => this.calculation('+')}> + </td>
           </tr>
           <tr>
-             <td  className="btn btn-success" onClick={(e) => this.calculation('CE')}> CE </td>
-             <td  className="btn" onClick={(e) => this.setState({ val2: 0, result: this.state.result + '0' })}> 0 </td>
-             <td  className="btn btn-success" onClick={(e) => this.calculation('/')}> / </td>
-             <td  className="btn btn-success" onClick={(e) => this.setState({ result: this.calculate(this.parseCalculationString(this.state.result))} )}> = </td>
+            <td onClick={(e) => this.calculation('CE')}> CE </td>
+            <td onClick={(e) => this.setState({ val2: 0, result: this.state.result + '0' })}> 0 </td>
+            <td onClick={(e) => this.calculation('/')}> / </td>
+            <td onClick={(e) => this.calculation('=')}> = </td>
           </tr>
 
         </table>

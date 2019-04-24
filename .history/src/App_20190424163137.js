@@ -28,7 +28,7 @@ class App extends Component {
       this.setState({
         val1: 0,
         val2: 0,
-        result: ''
+        result: 0
       });
     } else if (operator === '=') {
       if (this.state.operator === 'x') {
